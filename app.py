@@ -54,5 +54,33 @@ def logout():
     flash('Você saiu com sucesso.', 'info')
     return redirect(url_for('index'))
 
+# ...existing code...
+
+dispositivos = []
+
+@app.route('/cadastrar_dispositivo', methods=['GET', 'POST'])
+def cadastrar_dispositivo():
+    if 'username' not in session:
+        return redirect(url_for('index'))
+    if request.method == 'POST':
+        nome = request.form['nome']
+        horas = request.form['horas']
+        potencia = request.form['potencia']
+        dispositivos.append({
+            'nome': nome,
+            'horas': horas,
+            'potencia': potencia
+        })
+        flash('Dispositivo cadastrado com sucesso!')
+        return redirect(url_for('consultar_dispositivos'))
+    return render_template('cadastrar_dispositivo.html')
+
+@app.route('/consultar_dispositivos')
+def consultar_dispositivos():
+    if 'username' not in session:
+        return redirect(url_for('index'))
+    return render_template('consultar_dispositivos.html', dispositivos=dispositivos)
+# ...existing code...
+
 if __name__ == '__main__':
     app.run(debug=True)
