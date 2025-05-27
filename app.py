@@ -1,18 +1,12 @@
 from flask import Flask, render_template, request, redirect, url_for, flash, session
-<<<<<<< HEAD
-from passlib.hash import bcrypt
-=======
->>>>>>> origin/main
+from passlib.hash import bcrypt  # Incluído para segurança no hash de senhas
 
 app = Flask(__name__)
 app.secret_key = 'chave_secreta_segura'  # Para sessões e mensagens flash
 
 # Simulação de "banco de dados" em memória
 usuarios = {}
-<<<<<<< HEAD
 dispositivos = []
-=======
->>>>>>> origin/main
 
 @app.route('/')
 def index():
@@ -23,11 +17,7 @@ def login():
     username = request.form['username']
     password = request.form['password']
     
-<<<<<<< HEAD
     if username in usuarios and bcrypt.verify(password, usuarios[username]):
-=======
-    if username in usuarios and usuarios[username] == password:
->>>>>>> origin/main
         session['username'] = username
         flash('Login bem-sucedido!', 'success')
         return redirect(url_for('home'))
@@ -43,25 +33,17 @@ def cadastro():
 def cadastrar():
     username = request.form['username']
     password = request.form['password']
-<<<<<<< HEAD
     aceita_politica = request.form.get('acceptPrivacy')
 
     if not aceita_politica:
         flash('Você deve aceitar a Política de Privacidade para se cadastrar.', 'warning')
         return redirect(url_for('cadastro'))
-
-=======
     
->>>>>>> origin/main
     if username in usuarios:
         flash('Usuário já existe.', 'warning')
         return redirect(url_for('cadastro'))
     else:
-<<<<<<< HEAD
         usuarios[username] = bcrypt.hash(password)
-=======
-        usuarios[username] = password
->>>>>>> origin/main
         flash('Cadastro realizado com sucesso!', 'success')
         return redirect(url_for('index'))
 
@@ -79,23 +61,12 @@ def logout():
     flash('Você saiu com sucesso.', 'info')
     return redirect(url_for('index'))
 
-<<<<<<< HEAD
 @app.route('/cadastrar_dispositivo', methods=['GET', 'POST'])
 def cadastrar_dispositivo():
     if 'username' not in session:
         flash('Faça login para cadastrar dispositivos.', 'warning')
         return redirect(url_for('index'))
     
-=======
-# ...existing code...
-
-dispositivos = []
-
-@app.route('/cadastrar_dispositivo', methods=['GET', 'POST'])
-def cadastrar_dispositivo():
-    if 'username' not in session:
-        return redirect(url_for('index'))
->>>>>>> origin/main
     if request.method == 'POST':
         nome = request.form['nome']
         horas = request.form['horas']
@@ -105,26 +76,17 @@ def cadastrar_dispositivo():
             'horas': horas,
             'potencia': potencia
         })
-<<<<<<< HEAD
         flash('Dispositivo cadastrado com sucesso!', 'success')
         return redirect(url_for('consultar_dispositivos'))
-    
-=======
-        flash('Dispositivo cadastrado com sucesso!')
-        return redirect(url_for('consultar_dispositivos'))
->>>>>>> origin/main
     return render_template('cadastrar_dispositivo.html')
 
 @app.route('/consultar_dispositivos')
 def consultar_dispositivos():
     if 'username' not in session:
-<<<<<<< HEAD
         flash('Faça login para acessar os dispositivos.', 'warning')
         return redirect(url_for('index'))
     
     return render_template('consultar_dispositivos.html', dispositivos=dispositivos)
-
-# === ROTAS LGPD ===
 
 @app.route('/privacy_policy')
 def privacy_policy():
@@ -150,11 +112,6 @@ def excluir_conta():
     session.pop('username', None)
     flash('Sua conta foi excluída com sucesso.', 'info')
     return redirect(url_for('index'))
-=======
-        return redirect(url_for('index'))
-    return render_template('consultar_dispositivos.html', dispositivos=dispositivos)
-# ...existing code...
->>>>>>> origin/main
 
 if __name__ == '__main__':
     app.run(debug=True)
