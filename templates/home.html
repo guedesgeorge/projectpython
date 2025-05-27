@@ -11,12 +11,20 @@
         <h2>Bem-vindo, {{ username }}!</h2>
     </div>
     <a href="{{ url_for('logout') }}" class="btn btn-danger">Sair</a>
+<<<<<<< HEAD
     <a href="{{ url_for('perfil') }}" class="btn btn-info ms-2">Meu Perfil</a>
 
     <hr>
 
     <a href="{{ url_for('cadastrar_dispositivo') }}" class="btn btn-primary">Cadastrar Dispositivo</a>
     <a href="{{ url_for('consultar_dispositivos') }}" class="btn btn-secondary ms-2">Consultar Dispositivos</a>
+=======
+
+    <!-- ...existing code... -->
+    <a href="{{ url_for('cadastrar_dispositivo') }}"><button>Cadastrar Dispositivo</button></a>
+    <a href="{{ url_for('consultar_dispositivos') }}"><button>Consultar Dispositivos</button></a>
+    <!-- ...existing code... -->
+>>>>>>> origin/main
 </div>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
